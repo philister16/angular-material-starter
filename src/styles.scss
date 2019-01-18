@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.section-fullpage {
+    height: 100%;
+    padding: 16px;
+    background-color: #fafafa;
+}
+
+.w-468 {
+    width: 468px;
+}
+
+.text-centered {
+    text-align: center;
+}

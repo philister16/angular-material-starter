@@ -1,0 +1,16 @@
+<footer fxLayout fxLayoutAlign="space-between center">
+  <div>&copy; {{ year }} Brand name.</div>
+  <nav>
+    <ul fxHide.xs role="navigation" fxLayout fxLayoutGap="16px">
+      <li *ngFor="let item of footerMenu"><a [routerLink]="item.route">{{ item.navTitle }}</a></li>
+    </ul>
+  </nav>
+  <div>
+    <button mat-icon-button>
+      <mat-icon>help</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>email</mat-icon>
+    </button>
+  </div>
+</footer>

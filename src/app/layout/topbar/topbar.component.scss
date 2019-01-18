@@ -1,0 +1,23 @@
+.nav-top ul {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-top li {
+    list-style-type: none;
+}
+
+.nav-top a {
+    color: white;
+    text-decoration: none;
+}
+
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+.brand {
+    width: 200px; // Match width of sidenav!
+}

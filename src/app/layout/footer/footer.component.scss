@@ -1,0 +1,23 @@
+footer {
+    padding: 16px;
+    background-color: lightgrey;
+    color: grey;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    list-style-type: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: darkgrey;
+}
+
+nav a:hover {
+    color: grey;
+}

@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <div fxFlex="200px" fxHide.xs>Brand</div>
+  <div fxHide.gt-xs>B</div>
+  <div fxHide.gt-xs fxFlex="grow">
+    <button type="menu" mat-icon-button (click)="onMenuClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <nav fxHide.xs class="nav-top" fxFlex="grow" fxLayout>
+    <ul role="navigation" fxLayout fxLayoutGap="16px">
+      <li *ngFor="let item of mainMenu"><a href="#">{{ item.navTitle }}</a></li>
+    </ul>
+  </nav>
+  <div class="tools">
+    <button mat-icon-button>
+      <mat-icon matBadge="2" matBadgeColor="accent" matBadgeSize="medium">notification_important</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>account_box</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

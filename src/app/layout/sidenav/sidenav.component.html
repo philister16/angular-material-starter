@@ -1,0 +1,22 @@
+<app-topbar (menuChange)="drawer.toggle()"></app-topbar>
+<mat-sidenav-container>
+  <mat-sidenav 
+    [opened]="!(isHandset$ | async)" 
+    [mode]="(isHandset$ | async ) ? 'over' : 'side'" #drawer>
+    <mat-toolbar color="primary">
+      <div class="brand">Brand</div>
+    </mat-toolbar>
+    <mat-nav-list fxHide.gt-xs>
+      <a *ngFor="let item of mainMenu" mat-list-item [routerLink]="item.route" (click)="onMenuClick(drawer)">{{ item.navTitle }}</a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a *ngFor="let item of subMenu" mat-list-item [routerLink]="item.route" (click)="onMenuClick(drawer)">{{ item.navTitle }}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxLayout="column">
+    <main fxFlex="grow">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
