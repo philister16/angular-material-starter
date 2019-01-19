@@ -1,5 +1,5 @@
 <app-topbar (menuChange)="drawer.toggle()"></app-topbar>
-<mat-sidenav-container>
+<mat-sidenav-container class="mat-typography">
   <mat-sidenav 
     [opened]="!(isHandset$ | async)" 
     [mode]="(isHandset$ | async ) ? 'over' : 'side'" #drawer>
@@ -14,7 +14,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content fxLayout="column">
-    <main fxFlex="grow">
+    <main class="mat-typography" fxFlex="grow">
       <router-outlet></router-outlet>
     </main>
     <app-footer></app-footer>

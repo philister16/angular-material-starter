@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
   links: object[];
-  isSubmitted: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-    this.links = [
+    this.links = this.links = [
       { title: 'Sign up', route: '/auth/signup' },
       { title: 'Login', route: '/auth/login' },
       { title: 'Home', route: '/' }
@@ -22,12 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log(form.value);
-    this.isSubmitted = true;
     form.resetForm();
-  }
-
-  sendAgain() {
-    this.isSubmitted = false;
   }
 
 }

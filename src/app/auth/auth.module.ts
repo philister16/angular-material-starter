@@ -8,9 +8,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthFormShellComponent } from './auth-form-shell/auth-form-shell.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent],
+  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,
