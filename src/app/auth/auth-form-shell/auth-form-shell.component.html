@@ -1,0 +1,27 @@
+<section class="h-100" fxLayout fxLayoutAlign="center center">
+    <div class="w-468">
+      <mat-card>
+        <div class="text-centered">
+          <svg width="56px" height="72px" viewBox="0 0 256 272" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+            <g>
+              <path d="M0.0996108949,45.522179 L125.908171,0.697276265 L255.103502,44.7252918 L234.185214,211.175097 L125.908171,271.140856 L19.3245136,211.971984 L0.0996108949,45.522179 Z" fill="#E23237"></path>
+              <path d="M255.103502,44.7252918 L125.908171,0.697276265 L125.908171,271.140856 L234.185214,211.274708 L255.103502,44.7252918 L255.103502,44.7252918 Z" fill="#B52E31"></path>
+              <path d="M126.107393,32.27393 L126.107393,32.27393 L47.7136187,206.692607 L76.9992218,206.194553 L92.7377432,166.848249 L126.207004,166.848249 L126.306615,166.848249 L163.063035,166.848249 L180.29572,206.692607 L208.286381,207.190661 L126.107393,32.27393 L126.107393,32.27393 Z M126.306615,88.155642 L152.803113,143.5393 L127.402335,143.5393 L126.107393,143.5393 L102.997665,143.5393 L126.306615,88.155642 L126.306615,88.155642 Z" fill="#FFFFFF"></path>
+            </g>
+          </svg>
+        </div>
+        <mat-card-title>{{ heading }}</mat-card-title>
+        <ng-content></ng-content>
+        <mat-divider></mat-divider>
+        <mat-card-content class="pt-16" fxLayout fxLayoutAlign="space-between">
+          <div fxLayoutGap="8px">
+            <a mat-button [routerLink]="links[0].route">{{ links[0].title }}</a>
+            <a mat-button [routerLink]="links[1].route">{{ links[1].title }}</a>
+          </div>
+          <div>
+            <a mat-button [routerLink]="links[2].route">{{ links[2].title }}</a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>

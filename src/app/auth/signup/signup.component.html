@@ -1,3 +1,48 @@
-<p>
-  signup works!
-</p>
+<app-auth-form-shell heading="Sign up" [links]="links">
+  <form class="py-16" novalidate fxLayout="column" fxLayoutGap="16px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input 
+        matInput 
+        type="text" 
+        placeholder="Username" 
+        name="username" 
+        ngModel 
+        required 
+        minlength="6" 
+        #usernameInput="ngModel">
+        <mat-hint>Minimum 6 characters</mat-hint>
+        <mat-hint align="end">{{ usernameInput.value?.length }}/ 6</mat-hint>
+        <mat-error *ngIf="!usernameInput.hasError('minlength')">A username is required.</mat-error>
+        <mat-error *ngIf="usernameInput.hasError('minlength')">Username must be minimum 6 characters.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input 
+        matInput 
+        type="email" 
+        placeholder="Email" 
+        name="email" 
+        ngModel
+        required
+        email
+        #emailInput="ngModel">
+        <mat-error *ngIf="emailInput.hasError('email')">Please enter a valid email address.</mat-error>
+        <mat-error *ngIf="!emailInput.hasError('email')">An email address is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input 
+        matInput 
+        type="password" 
+        placeholder="Password" 
+        name="password" 
+        ngModel
+        minlength="8"
+        required
+        #passwordInput="ngModel">
+        <mat-hint>Minimum 8 characters</mat-hint>
+        <mat-hint align="end">{{ passwordInput.value?.length }}/ 8</mat-hint>
+        <mat-error *ngIf="passwordInput.hasError('minlength')">Password requires minimum of 8 characters.</mat-error>
+        <mat-error *ngIf="!passwordInput.hasError('minlength')">A password is required.</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Sign up</button>
+  </form>
+</app-auth-form-shell>
