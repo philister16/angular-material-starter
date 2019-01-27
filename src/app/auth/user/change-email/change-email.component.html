@@ -1,0 +1,15 @@
+<form fxLayout="column" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <h2>Update Email</h2>
+  <mat-form-field>
+    <input 
+      matInput 
+      type="text" 
+      placeholder="Email" 
+      name="email" 
+      [(ngModel)]="oldEmail"
+      required
+      email>
+    <mat-error>A valid email address is required.</mat-error>
+  </mat-form-field>
+  <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Update</button>
+</form>

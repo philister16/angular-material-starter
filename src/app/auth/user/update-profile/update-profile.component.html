@@ -1,0 +1,13 @@
+<form fxLayout="column" #f=ngForm (ngSubmit)="onSubmit(f)">
+  <h2>Update Profile</h2>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Firstname" name="firstname" [(ngModel)]="user.firstname">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Lastname" name="lastname" [(ngModel)]="user.lastname">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput name="bio" cols="30" rows="10" placeholder="Bio" [(ngModel)]="user.bio"></textarea>
+  </mat-form-field>
+  <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Save</button>
+</form>

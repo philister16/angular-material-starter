@@ -9,9 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthFormShellComponent } from './auth-form-shell/auth-form-shell.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UserComponent } from './user/user.component';
+import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { ChangeEmailComponent } from './user/change-email/change-email.component';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent],
+  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

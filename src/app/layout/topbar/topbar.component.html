@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="mat-typography">
+<mat-toolbar color="primary" class="mat-typography mat-elevation-z2">
   <div fxFlex="200px" fxHide.xs>Brand</div>
   <div fxHide.gt-xs>B</div>
   <div fxHide.gt-xs fxFlex="grow">
@@ -8,15 +8,15 @@
   </div>
   <nav fxHide.xs class="nav-top" fxFlex="grow" fxLayout>
     <ul role="navigation" fxLayout fxLayoutGap="16px">
-      <li *ngFor="let item of mainMenu"><a href="#">{{ item.navTitle }}</a></li>
+      <li *ngFor="let item of mainMenu"><a [routerLink]=item.route>{{ item.navTitle }}</a></li>
     </ul>
   </nav>
   <div class="tools">
     <button mat-icon-button>
       <mat-icon matBadge="2" matBadgeColor="accent" matBadgeSize="medium">notification_important</mat-icon>
     </button>
-    <button mat-icon-button>
+    <a mat-icon-button routerLink="/user">
       <mat-icon>account_box</mat-icon>
-    </button>
+    </a>
   </div>
 </mat-toolbar>

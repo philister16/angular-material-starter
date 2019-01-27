@@ -1,0 +1,32 @@
+<section>
+  <mat-card fxLayout fxLayout.xs="column" fxLayoutGap="16px">
+    <div fxFlex.gt-xs="33%" class="profile-image">
+      <button mat-icon-button color="accent">
+        <mat-icon>add_a_photo</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="!isUpdating && !isChangingEmail && !isChangingPassword">
+      <mat-card-title-group>
+        <mat-card-title>{{ user.firstname }} {{ user.lastname }}</mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card-title-group>
+      <mat-card-content>
+        <p>{{ user.bio }}</p>
+      </mat-card-content>
+      <div>
+        <button mat-stroked-button (click)="onUpdateStart()">Update</button>
+        <button mat-stroked-button (click)="onChangeEmail()">Change email</button>
+        <button mat-stroked-button (click)="onChangePassword()">Change password</button>
+      </div>
+    </div>
+    <div *ngIf="isUpdating" class="profile-form">
+      <app-update-profile [user]="user" (userUpdated)="onUpdateFinished($event)"></app-update-profile>
+    </div>
+    <div *ngIf="isChangingEmail" class="profile-form">
+      <app-change-email [oldEmail]="user.email" (newEmail)="onEmailChanged($event)"></app-change-email>
+    </div>
+    <div *ngIf="isChangingPassword" class="profile-form">
+      <app-change-password (newPassword)="onPasswordChanged($event)"></app-change-password>
+    </div>
+  </mat-card>
+</section>
