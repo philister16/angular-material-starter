@@ -11,5 +11,8 @@
       email>
     <mat-error>A valid email address is required.</mat-error>
   </mat-form-field>
-  <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Update</button>
+  <div>
+    <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Update</button>
+    <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+  </div>
 </form>

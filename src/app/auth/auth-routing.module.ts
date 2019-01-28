@@ -15,8 +15,8 @@ const authRoutes: Routes = [
         { path: 'forgot-password', component: ForgotPasswordComponent },
         { path: 'reset-password', component: ResetPasswordComponent }
     ]},
-    { path: '', component: SidenavComponent, children: [
-        { path: 'user', component: UserComponent }
+    { path: 'user', component: SidenavComponent, children: [
+        { path: '', pathMatch: 'full', component: UserComponent }
     ]}
 ];
 

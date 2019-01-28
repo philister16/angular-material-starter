@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   links: object[];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.links = [
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     console.log(form.value);
     form.resetForm();
+    this.authService.login();
   } 
 
 }

@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UpdateProfileComponent implements OnInit {
   @Input() user: User;
-  @Output() userUpdated = new EventEmitter<User>();
+  @Output() userUpdated = new EventEmitter<User | null>();
 
   constructor() { }
 
@@ -18,6 +18,10 @@ export class UpdateProfileComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.userUpdated.emit(form.value);
+  }
+
+  onCancel() {
+    this.userUpdated.emit(null);
   }
 
 }

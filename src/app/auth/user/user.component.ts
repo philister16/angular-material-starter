@@ -25,27 +25,33 @@ export class UserComponent implements OnInit, OnDestroy {
     this.isUpdating = true;
   }
 
-  onUpdateFinished(user: User) {
+  onUpdateFinished(user: User | null) {
     this.isUpdating = false;
-    this.userService.updateUser(user);
+    if (user) {
+      this.userService.updateUser(user);
+    }
   }
 
   onChangeEmail() {
     this.isChangingEmail = true;
   }
 
-  onEmailChanged(newEmail: string) {
+  onEmailChanged(newEmail: string | null) {
     this.isChangingEmail = false;
-    this.userService.updateUser({ email: newEmail});
+    if (newEmail) {
+      this.userService.updateUser({ email: newEmail});
+    }
   }
 
   onChangePassword() {
     this.isChangingPassword = true;
   }
 
-  onPasswordChanged(newPassword: string) {
+  onPasswordChanged(newPassword: string | null) {
     this.isChangingPassword = false;
-    this.userService.updateUser({ password: newPassword });
+    if (newPassword) {
+      this.userService.updateUser({ password: newPassword });
+    }
   }
 
   ngOnDestroy() {

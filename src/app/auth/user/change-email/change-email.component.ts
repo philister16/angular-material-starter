@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ChangeEmailComponent implements OnInit {
   @Input() oldEmail: string;
-  @Output() newEmail = new EventEmitter<string>();
+  @Output() newEmail = new EventEmitter<string | null>();
 
   constructor() { }
 
@@ -18,6 +18,10 @@ export class ChangeEmailComponent implements OnInit {
   onSubmit(form: NgForm) {
     const email = form.controls['email'].value;
     this.newEmail.emit(email);
+  }
+
+  onCancel() {
+    this.newEmail.emit(null);
   }
 
 }

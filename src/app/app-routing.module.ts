@@ -3,10 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '', component: SidenavComponent, children: [
+  { path: '', component: SidenavComponent, /*canActivate: [AuthGuard],*/ children: [
+    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent}
   ]},
   { path: '**', redirectTo: '404' },

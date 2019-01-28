@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ChangePasswordComponent implements OnInit {
   oldPassword: string;
-  @Output() newPassword = new EventEmitter<string>();
+  @Output() newPassword = new EventEmitter<string | null>();
 
   constructor() { }
 
@@ -19,5 +19,9 @@ export class ChangePasswordComponent implements OnInit {
   onSubmit(form: NgForm) {
     const password = form.controls['newPassword'].value;
     this.newPassword.emit(password);
+  }
+
+  onCancel() {
+    this.newPassword.emit(null);
   }
 }

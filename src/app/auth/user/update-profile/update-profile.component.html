@@ -9,5 +9,8 @@
   <mat-form-field>
     <textarea matInput name="bio" cols="30" rows="10" placeholder="Bio" [(ngModel)]="user.bio"></textarea>
   </mat-form-field>
-  <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Save</button>
+  <div>
+    <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Save</button>
+    <button gdGridAlign="row-axis" mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+  </div>
 </form>
