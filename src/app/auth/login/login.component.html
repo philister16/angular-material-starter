@@ -23,6 +23,9 @@
         required>
         <mat-error>A password is required.</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Login</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" fxLayout="column" fxLayoutAlign="center">
+      <span *ngIf="!atWork">Login</span>
+      <mat-spinner *ngIf="atWork" diameter="20" color="accent" style="display: inline-block;"></mat-spinner>
+    </button>
   </form>
 </app-auth-form-shell>

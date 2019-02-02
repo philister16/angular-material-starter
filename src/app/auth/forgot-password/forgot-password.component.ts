@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,7 +11,7 @@ export class ForgotPasswordComponent implements OnInit {
   links: object[];
   isSubmitted: boolean = false;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.links = [
@@ -20,10 +21,17 @@ export class ForgotPasswordComponent implements OnInit {
     ];
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     console.log(form.value);
-    this.isSubmitted = true;
-    form.resetForm();
+    try {
+      const state = await this.authService.forgotPassword(form.value);
+      if (state) {
+        this.isSubmitted = state;
+        form.resetForm();
+      }
+    } catch(err) {
+      console.log('authService#onSubmit:', err);
+    }
   }
 
   sendAgain() {

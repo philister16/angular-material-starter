@@ -6,16 +6,19 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SidenavComponent } from '../layout/sidenav/sidenav.component';
 import { UserComponent } from './user/user.component';
+import { AuthGuard } from './auth.guard';
+import { LogoutComponent } from './logout/logout.component';
 
 const authRoutes: Routes = [
     { path: 'auth', children: [
         { path: '', redirectTo: 'login', pathMatch: 'full' },
         { path: 'signup', component: SignupComponent },
         { path: 'login', component: LoginComponent },
+        { path: 'logout', component: LogoutComponent },
         { path: 'forgot-password', component: ForgotPasswordComponent },
         { path: 'reset-password', component: ResetPasswordComponent }
     ]},
-    { path: 'user', component: SidenavComponent, children: [
+    { path: 'user', component: SidenavComponent, canActivate: [AuthGuard], children: [
         { path: '', pathMatch: 'full', component: UserComponent }
     ]}
 ];

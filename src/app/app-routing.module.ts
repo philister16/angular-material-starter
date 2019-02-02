@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: SidenavComponent, /*canActivate: [AuthGuard],*/ children: [
+  { path: '', component: SidenavComponent, canActivate: [AuthGuard], children: [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent}
   ]},

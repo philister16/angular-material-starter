@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   links: object[];
+  atWork: boolean = false;
 
   constructor(private authService: AuthService) { }
 
@@ -20,10 +21,16 @@ export class LoginComponent implements OnInit {
     ];
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     console.log(form.value);
-    form.resetForm();
-    this.authService.login();
-  } 
+    try {
+      this.atWork = true;
+      await this.authService.login(form.value);
+      form.resetForm();
+      this.atWork = false;
+    } catch(err) {
+      console.log('Login#onSubmit', err);
+    }
+  }
 
 }

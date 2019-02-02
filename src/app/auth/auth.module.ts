@@ -13,9 +13,10 @@ import { UserComponent } from './user/user.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 import { ChangeEmailComponent } from './user/change-email/change-email.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent],
+  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent, LogoutComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

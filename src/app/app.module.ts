@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +10,7 @@ import { LayoutModule } from './layout/layout.module';
 import { ErrorModule } from './error/error.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,8 @@ import { AuthModule } from './auth/auth.module';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     ErrorModule,
     BrowserAnimationsModule,
     LayoutModule,

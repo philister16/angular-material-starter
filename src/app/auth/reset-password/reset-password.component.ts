@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -9,7 +11,7 @@ import { NgForm } from '@angular/forms';
 export class ResetPasswordComponent implements OnInit {
   links: object[];
 
-  constructor() { }
+  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.links = this.links = [
@@ -19,8 +21,15 @@ export class ResetPasswordComponent implements OnInit {
     ];
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     console.log(form.value);
+    const { password } = form.value;
+    const code = this.activatedRoute.snapshot.queryParams['oobCode'];
+    try {
+      await this.authService.resetPassword(code, password);
+    } catch(err) {
+      console.log('ResetPasswordComponent#onSubmit:', err);
+    }
     form.resetForm();
   }
 
