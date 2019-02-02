@@ -14,11 +14,13 @@ import { UpdateProfileComponent } from './user/update-profile/update-profile.com
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
 import { ChangeEmailComponent } from './user/change-email/change-email.component';
 import { LogoutComponent } from './logout/logout.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent, LogoutComponent],
   imports: [
     CommonModule,
+    SharedModule,
     AngularMaterialModule,
     FlexLayoutModule,
     FormsModule,

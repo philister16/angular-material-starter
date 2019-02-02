@@ -10,6 +10,8 @@ import { AuthService } from '../auth.service';
 export class ForgotPasswordComponent implements OnInit {
   links: object[];
   isSubmitted: boolean = false;
+  atWork: boolean = false;
+  err: { show: boolean, message?: string } = { show: false };
 
   constructor(private authService: AuthService) { }
 
@@ -22,20 +24,27 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
-    console.log(form.value);
+    this.atWork = true;
+    this.err = { show: false };
     try {
-      const state = await this.authService.forgotPassword(form.value);
-      if (state) {
-        this.isSubmitted = state;
-        form.resetForm();
-      }
+      await this.authService.forgotPassword(form.value);
+      this.atWork = false;
     } catch(err) {
-      console.log('authService#onSubmit:', err);
+      this.atWork = false;
+      this.err = { show: true, message: err.message };
     }
+    if (!this.err.show) {
+      this.showComplete();
+    }
+  }
+
+  showComplete() {
+    this.isSubmitted = true;
   }
 
   sendAgain() {
     this.isSubmitted = false;
+    this.err = { show: false };
   }
 
 }

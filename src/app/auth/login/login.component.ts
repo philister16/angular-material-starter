@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   links: object[];
   atWork: boolean = false;
+  errMsg: boolean = false;
 
   constructor(private authService: AuthService) { }
 
@@ -22,14 +23,14 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
-    console.log(form.value);
+    this.atWork = true;
+    this.errMsg = false;
     try {
-      this.atWork = true;
       await this.authService.login(form.value);
-      form.resetForm();
       this.atWork = false;
     } catch(err) {
-      console.log('Login#onSubmit', err);
+      this.atWork = false;
+      this.errMsg = true;
     }
   }
 

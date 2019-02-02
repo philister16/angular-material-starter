@@ -10,6 +10,8 @@ import { AuthService } from '../auth.service';
 })
 export class ResetPasswordComponent implements OnInit {
   links: object[];
+  atWork: boolean = false;
+  err: { show: boolean, message?: string } = { show: false };
 
   constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
 
@@ -22,15 +24,17 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
-    console.log(form.value);
+    this.atWork = true;
+    this.err = { show: false };
     const { password } = form.value;
     const code = this.activatedRoute.snapshot.queryParams['oobCode'];
     try {
       await this.authService.resetPassword(code, password);
+      this.atWork = false;
     } catch(err) {
-      console.log('ResetPasswordComponent#onSubmit:', err);
+      this.atWork = false;
+      this.err = { show: true, message: err.message };
     }
-    form.resetForm();
   }
 
 }

@@ -4,7 +4,9 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 button { text-transform: uppercase }
-
+.mat-spinner circle {
+    stroke: white;
+}
 // Global utils
 section, footer, .container {
     padding: 16px;
@@ -30,4 +32,8 @@ section, footer, .container {
 
 .text-centered {
     text-align: center;
+}
+
+.text-error {
+    color: darkred;
 }

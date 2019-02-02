@@ -23,9 +23,7 @@
         required>
         <mat-error>A password is required.</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" fxLayout="column" fxLayoutAlign="center">
-      <span *ngIf="!atWork">Login</span>
-      <mat-spinner *ngIf="atWork" diameter="20" color="accent" style="display: inline-block;"></mat-spinner>
-    </button>
+    <app-loading-button type="submit" color="primary" [disabled]="f.invalid" [state]="atWork">Login</app-loading-button>
   </form>
+  <p *ngIf="errMsg" class="text-error text-centered">Invalid login credentials. Please try again.</p>
 </app-auth-form-shell>

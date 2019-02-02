@@ -1,0 +1,4 @@
+<button [type]="type" mat-raised-button [color]="color" [disabled]="disabled" fxLayout="column" fxLayoutAlign="center">
+  <span *ngIf="!state"><ng-content></ng-content></span>
+  <mat-spinner *ngIf="state" diameter="20" style="display: inline-block;"></mat-spinner>
+</button>
