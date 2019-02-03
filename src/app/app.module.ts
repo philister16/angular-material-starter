@@ -2,6 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+// TODO: Remove Angularfire Fix
+// Fix for console error, needed until issue #1993 on angularfire2 repo is solved
+// https://github.com/angular/angularfire2/issues/1993
+import { FirestoreSettingsToken } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +26,7 @@ import { environment } from 'src/environments/environment';
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     ErrorModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -27,7 +34,10 @@ import { environment } from 'src/environments/environment';
     DashboardModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    // Fix for angularfire console error, see above
+    { provide: FirestoreSettingsToken, useValue: {}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

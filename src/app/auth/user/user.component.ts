@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from './user.model';
+import { User } from './user.interface';
 import { UserService } from './user.service';
 import { Subscription } from 'rxjs';
 
@@ -18,17 +18,22 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.userSubject.subscribe(user => this.user = user);
+    this.userSubscription = this.userService.userInfo().subscribe(user => {
+      this.user = user;
+    });
   }
 
-  onUpdateStart() {
-    this.isUpdating = true;
-  }
-
-  onUpdateFinished(user: User | null) {
-    this.isUpdating = false;
-    if (user) {
-      this.userService.updateUser(user);
+  toggleView(view: 'email' | 'password' | 'profile') {
+    switch(view) {
+      case 'profile':
+        this.isUpdating = !this.isUpdating;
+        break;
+      case 'email':
+        this.isChangingEmail = !this.isChangingEmail;
+        break;
+      case 'password':
+        this.isChangingPassword = !this.isChangingPassword;
+        break;
     }
   }
 

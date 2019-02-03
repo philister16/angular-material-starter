@@ -7,20 +7,20 @@
     </div>
     <div *ngIf="!isUpdating && !isChangingEmail && !isChangingPassword">
       <mat-card-title-group>
-        <mat-card-title>{{ user.firstname }} {{ user.lastname }}</mat-card-title>
-        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+        <mat-card-title>{{ user?.firstname && user?.lastname ? user?.firstname + " " + user?.lastname : user?.username }}</mat-card-title>
+        <mat-card-subtitle>{{ user?.email }}</mat-card-subtitle>
       </mat-card-title-group>
       <mat-card-content>
-        <p>{{ user.bio }}</p>
+        <p>{{ user?.bio }}</p>
       </mat-card-content>
       <div>
-        <button mat-stroked-button (click)="onUpdateStart()">Update</button>
-        <button mat-stroked-button (click)="onChangeEmail()">Change email</button>
-        <button mat-stroked-button (click)="onChangePassword()">Change password</button>
+        <button mat-stroked-button (click)="toggleView('profile')">Update</button>
+        <button mat-stroked-button (click)="toggleView('email')">Change email</button>
+        <button mat-stroked-button (click)="toggleView('password')">Change password</button>
       </div>
     </div>
     <div *ngIf="isUpdating" class="profile-form">
-      <app-update-profile [user]="user" (userUpdated)="onUpdateFinished($event)"></app-update-profile>
+      <app-update-profile [user]="user" (done)="toggleView('profile')"></app-update-profile>
     </div>
     <div *ngIf="isChangingEmail" class="profile-form">
       <app-change-email [oldEmail]="user.email" (newEmail)="onEmailChanged($event)"></app-change-email>

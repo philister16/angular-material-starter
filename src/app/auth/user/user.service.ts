@@ -1,24 +1,42 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { User } from './user.model';
+import { Observable } from 'rxjs';
+import { User } from './user.interface';
+import { AuthService } from '../auth.service';
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  user: User = {
-    email: 'tester1@rhinerock.com',
-    firstname: 'Tester',
-    lastname: 'One',
-    bio: 'This is some info about the user.'
-  };
-  userSubject = new BehaviorSubject<User>(this.user);
+  private userId: string;
+  private user: User;
 
-  constructor() { }
+  constructor(private authService: AuthService, private db: AngularFirestore) {
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.user = { email: user.email };
+      }
+    });
+  }
 
-  updateUser(user: User) {
-    this.user = { ...this.user, ...user };
-    this.userSubject.next(this.user);
+  userInfo(): Observable<User> {
+    return this.db.collection('users').doc(this.userId).get().pipe(
+      map(doc => {
+        return this.user = {
+          ...this.user, ...doc.data()
+        }
+      })
+    );
+  }
+
+  async updateUser(user: User) {
+    try {
+      await this.db.collection('users').doc(this.userId).update(user);
+    } catch(err) {
+      console.log('UserService#updateUser:', err);
+    }
   }
 
 }

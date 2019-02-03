@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../user.model';
+import { User } from '../user.interface';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -9,19 +10,24 @@ import { NgForm } from '@angular/forms';
 })
 export class UpdateProfileComponent implements OnInit {
   @Input() user: User;
-  @Output() userUpdated = new EventEmitter<User | null>();
+  @Output() done = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm) {
-    this.userUpdated.emit(form.value);
+  async onSubmit(form: NgForm) {
+    try {
+      await this.userService.updateUser(form.value);
+      this.done.emit();
+    } catch(err) {
+      console.log('UpdateProfileComponent#onSubmit:', err);
+    }
   }
 
   onCancel() {
-    this.userUpdated.emit(null);
+    this.done.emit();
   }
 
 }

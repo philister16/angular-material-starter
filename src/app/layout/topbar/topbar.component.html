@@ -1,6 +1,8 @@
 <mat-toolbar color="primary" class="mat-typography mat-elevation-z2">
-  <div fxFlex="200px" fxHide.xs>Brand</div>
-  <div fxHide.gt-xs>B</div>
+  <a routerLink="/" class="brand-link">
+    <div fxFlex="200px" fxHide.xs>Brand</div>
+    <div fxHide.gt-xs>B</div>
+  </a>
   <div fxHide.gt-xs fxFlex="grow">
     <button type="menu" mat-icon-button (click)="onMenuClick()">
       <mat-icon>menu</mat-icon>

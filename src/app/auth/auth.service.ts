@@ -1,32 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticated: boolean = false;
   redirectUrl: string;
-  authState: Observable<firebase.User>;
+  user: Observable<firebase.User>;
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private snackbar: MatSnackBar) {
-    this.authState = this.afAuth.authState;
-    this.authState.subscribe(user => {
-      console.log('authService#constructor:', user);
-      if (user) this.isAuthenticated = true;
-      else this.isAuthenticated = false;
-    });
-  }
+  constructor(
+    private router: Router, 
+    private afAuth: AngularFireAuth, 
+    private snackbar: MatSnackBar,
+    private db: AngularFirestore) {
+      this.user = this.afAuth.user;
+      this.afAuth.user.subscribe(user => {
+        console.log('AuthService#constructor:', user);
+      });
+    }
 
-  async signUp({ email, password }) {
+  async signUp({ email, password, username }) {
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      const cred = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      await this.db.collection('users').doc(cred.user.uid).set({
+        username
+      });
       const url = this.redirectUrl || '/user';
       this.router.navigateByUrl(url);
     } catch(err) {
+      console.log('authService#signUp:', err);
       throw err;
     }
   }
