@@ -1,0 +1,10 @@
+<mat-card 
+  *ngFor="let alert of alerts" 
+  fxLayout="row" 
+  fxLayoutAlign="start center" 
+  [ngStyle]="{ 'background-color': bgColor(alert.type) }">
+  <mat-icon fxFlex="32px">{{ alert.type }}</mat-icon>
+  <span class="mat-body-strong" fxFlex>{{ alert.message }}</span>
+  <button mat-button (click)="dismiss(alert)">{{ alert.dismiss }}</button>
+</mat-card>
+

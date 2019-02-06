@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuService } from 'src/app/menu/menu.service';
+import { AlertService } from 'src/app/core/alert.service';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnDestroy {
   isHandset$: Observable<Boolean>;
   mainMenu;
   subMenu;
+  alertSubscription: Subscription;
+  hasAlert: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private alertService: AlertService
     ) { }
 
   ngOnInit() {
@@ -25,6 +29,7 @@ export class SidenavComponent implements OnInit {
     );
     this.mainMenu = this.menuService.getMenu('main');
     this.subMenu = this.menuService.getMenu('sub');
+    this.alertSubscription = this.alertService.hasAlert$.subscribe(state => this.hasAlert = state);
   }
 
   onMenuClick(drawer) {
@@ -32,6 +37,10 @@ export class SidenavComponent implements OnInit {
     if (!isFullscreen) {
       drawer.close();
     }
+  }
+
+  ngOnDestroy() {
+    this.alertSubscription.unsubscribe();
   }
 
 }

@@ -6,9 +6,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
-  declarations: [TopbarComponent, SidenavComponent, FooterComponent],
+  declarations: [TopbarComponent, SidenavComponent, FooterComponent, AlertComponent],
   imports: [
     CommonModule,
     RouterModule,

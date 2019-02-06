@@ -9,18 +9,12 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-  links: object[];
   atWork: boolean = false;
   err: { show: boolean, message?: string } = { show: false };
 
   constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.links = this.links = [
-      { title: 'Sign up', route: '/auth/signup' },
-      { title: 'Login', route: '/auth/login' },
-      { title: 'Home', route: '/' }
-    ];
   }
 
   async onSubmit(form: NgForm) {

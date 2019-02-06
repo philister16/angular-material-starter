@@ -1,0 +1,11 @@
+<app-auth-form-shell heading="Action">
+  <div *ngIf="isMode('verifyEmail')" class="py-16">
+    <p>Verifying email...</p>
+  </div>
+  <div *ngIf="isMode('success')">
+    <p class="success-text">Success! {{ message }} You will be redirected back to the app in {{ timer }} seconds. <a routerLink="/user">Continue</a></p>
+  </div>
+  <div class="error-text" *ngIf="isMode('error')">
+    <p>Oops. {{ message }} You will be redirected back to the app in {{ timer }} seconds. <a routerLink="/">Back</a></p>
+  </div>
+</app-auth-form-shell>

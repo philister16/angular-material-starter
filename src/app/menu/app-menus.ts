@@ -23,3 +23,10 @@ export const FOOTER_MENU: AppMenu[] = [
   { navTitle: 'Home', route: '/dashboard' },
   { navTitle: 'Sign up', route: '/auth/signup' }
 ]
+
+export const AUTH_FORMS_MENU: AppMenu[] = [
+  { navTitle: "Login", route: '/auth/login' },
+  { navTitle: 'Sign up', route: '/auth/signup' },
+  { navTitle: 'Forgot password', route: '/auth/forgot-password' },
+  { navTitle: 'Home', route: '/' }
+]

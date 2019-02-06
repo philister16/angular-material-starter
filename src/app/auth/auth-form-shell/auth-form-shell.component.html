@@ -16,13 +16,7 @@
         <ng-content></ng-content>
         <mat-divider></mat-divider>
         <mat-card-content class="pt-16" fxLayout fxLayoutAlign="space-between">
-          <div fxLayoutGap="8px">
-            <a mat-button [routerLink]="links[0].route">{{ links[0].title }}</a>
-            <a mat-button [routerLink]="links[1].route">{{ links[1].title }}</a>
-          </div>
-          <div>
-            <a mat-button [routerLink]="links[2].route">{{ links[2].title }}</a>
-          </div>
+          <a mat-button *ngFor="let item of menu" [routerLink]="item.route">{{ item.navTitle }}</a>
         </mat-card-content>
       </mat-card>
     </div>

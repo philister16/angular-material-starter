@@ -8,18 +8,12 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  links: object[];
   atWork: boolean = false;
   errMsg: boolean = false;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.links = [
-      { title: 'Sign up', route: '/auth/signup' },
-      { title: 'Forgot password', route: '/auth/forgot-password' },
-      { title: 'Home', route: '/' }
-    ];
   }
 
   async onSubmit(form: NgForm) {

@@ -4,24 +4,69 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
+import { AlertService } from '../core/alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   redirectUrl: string;
-  user: Observable<firebase.User>;
+  currentUser: firebase.User;
+  user$: Observable<firebase.User>;
 
   constructor(
     private router: Router, 
     private afAuth: AngularFireAuth, 
     private snackbar: MatSnackBar,
-    private db: AngularFirestore) {
-      this.user = this.afAuth.user;
-      this.afAuth.user.subscribe(user => {
+    private db: AngularFirestore,
+    private alertService: AlertService) {
+      this.user$ = this.afAuth.user;
+      this.afAuth.auth.onAuthStateChanged(user => {
         console.log('AuthService#constructor:', user);
+        this.currentUser = user;
+        if (user && !user.emailVerified) {
+          this.hasEmailAlert(true);
+        }
       });
+  }
+
+  async resendEmailVerificationLink() {
+    try {
+      await this.afAuth.auth.currentUser.sendEmailVerification();
+      this.alertService.issue({
+        type: 'info',
+        message: 'Link delivered to your inbox again. Please click it to verify your email.',
+        dismiss: 'OK'
+      });
+    } catch(err) {
+      console.log('AuthService#resendEmailVerificationLink:', err);
     }
+  }
+
+  async verifyEmail(actionCode: string) {
+    try {
+      await this.afAuth.auth.applyActionCode(actionCode);
+      await this.currentUser.reload()
+      this.hasEmailAlert(false);
+    } catch(err) {
+      throw err;
+    }
+  }
+
+  private hasEmailAlert(showAlert: boolean) {
+    const alert = {
+      type: 'warning',
+      message: 'Please verify your email address. Check your inbox and click the link.',
+      dismiss: 'Resend link',
+      action: () => { return this.resendEmailVerificationLink() }
+    }
+    if (showAlert) {
+      this.alertService.issue(alert);
+    } else {
+      this.alertService.remove(alert);
+    }
+
+  }
 
   async signUp({ email, password, username }) {
     try {
@@ -29,6 +74,7 @@ export class AuthService {
       await this.db.collection('users').doc(cred.user.uid).set({
         username
       });
+      await cred.user.sendEmailVerification();
       const url = this.redirectUrl || '/user';
       this.router.navigateByUrl(url);
     } catch(err) {

@@ -15,9 +15,10 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
 import { ChangeEmailComponent } from './user/change-email/change-email.component';
 import { LogoutComponent } from './logout/logout.component';
 import { SharedModule } from '../shared/shared.module';
+import { ActionComponent } from './action/action.component';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent, LogoutComponent],
+  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent, LogoutComponent, ActionComponent],
   imports: [
     CommonModule,
     SharedModule,

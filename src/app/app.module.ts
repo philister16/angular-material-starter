@@ -17,6 +17,7 @@ import { ErrorModule } from './error/error.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
 import { environment } from 'src/environments/environment';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { environment } from 'src/environments/environment';
   ],
   imports: [
     BrowserModule,
+    CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,

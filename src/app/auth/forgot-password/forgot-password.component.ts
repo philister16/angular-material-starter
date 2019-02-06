@@ -8,7 +8,6 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-  links: object[];
   isSubmitted: boolean = false;
   atWork: boolean = false;
   err: { show: boolean, message?: string } = { show: false };
@@ -16,11 +15,6 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.links = [
-      { title: 'Sign up', route: '/auth/signup' },
-      { title: 'Login', route: '/auth/login' },
-      { title: 'Home', route: '/' }
-    ];
   }
 
   async onSubmit(form: NgForm) {

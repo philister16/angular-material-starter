@@ -8,6 +8,7 @@ import { SidenavComponent } from '../layout/sidenav/sidenav.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './auth.guard';
 import { LogoutComponent } from './logout/logout.component';
+import { ActionComponent } from './action/action.component';
 
 const authRoutes: Routes = [
     { path: 'auth', children: [
@@ -16,7 +17,8 @@ const authRoutes: Routes = [
         { path: 'login', component: LoginComponent },
         { path: 'logout', component: LogoutComponent },
         { path: 'forgot-password', component: ForgotPasswordComponent },
-        { path: 'reset-password', component: ResetPasswordComponent }
+        { path: 'reset-password', component: ResetPasswordComponent },
+        { path: 'action', component: ActionComponent }
     ]},
     { path: 'user', component: SidenavComponent, canActivate: [AuthGuard], children: [
         { path: '', pathMatch: 'full', component: UserComponent }

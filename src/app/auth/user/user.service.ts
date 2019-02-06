@@ -13,7 +13,7 @@ export class UserService {
   private user: User;
 
   constructor(private authService: AuthService, private db: AngularFirestore) {
-    this.authService.user.subscribe(user => {
+    this.authService.user$.subscribe(user => {
       if (user) {
         this.userId = user.uid;
         this.user = { email: user.email };
