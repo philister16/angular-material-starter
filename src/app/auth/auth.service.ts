@@ -12,7 +12,6 @@ import { AlertService } from '../core/alert.service';
 export class AuthService {
   redirectUrl: string;
   currentUser: firebase.User;
-  user$: Observable<firebase.User>;
 
   constructor(
     private router: Router, 
@@ -20,7 +19,6 @@ export class AuthService {
     private snackbar: MatSnackBar,
     private db: AngularFirestore,
     private alertService: AlertService) {
-      this.user$ = this.afAuth.user;
       this.afAuth.auth.onAuthStateChanged(user => {
         console.log('AuthService#constructor:', user);
         this.currentUser = user;

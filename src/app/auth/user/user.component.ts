@@ -1,26 +1,25 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from './user.interface';
 import { UserService } from './user.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class UserComponent implements OnInit {
   isUpdating: boolean = false;
   isChangingEmail: boolean = false;
   isChangingPassword: boolean = false;
   user: User;
   userSubscription: Subscription;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.userInfo().subscribe(user => {
-      this.user = user;
-    });
+    this.user = this.route.snapshot.data.userInfo;
   }
 
   toggleView(view: 'email' | 'password' | 'profile') {
@@ -57,10 +56,6 @@ export class UserComponent implements OnInit, OnDestroy {
     if (newPassword) {
       this.userService.updateUser({ password: newPassword });
     }
-  }
-
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
   }
 
 }

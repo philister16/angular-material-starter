@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component';
 import { AuthGuard } from './auth.guard';
 import { LogoutComponent } from './logout/logout.component';
 import { ActionComponent } from './action/action.component';
+import { UserResolver } from './user/user.resolver';
 
 const authRoutes: Routes = [
     { path: 'auth', children: [
@@ -21,7 +22,7 @@ const authRoutes: Routes = [
         { path: 'action', component: ActionComponent }
     ]},
     { path: 'user', component: SidenavComponent, canActivate: [AuthGuard], children: [
-        { path: '', pathMatch: 'full', component: UserComponent }
+        { path: '', pathMatch: 'full', component: UserComponent, resolve: { userInfo: UserResolver } }
     ]}
 ];
 

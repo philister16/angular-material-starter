@@ -16,6 +16,7 @@ import { ChangeEmailComponent } from './user/change-email/change-email.component
 import { LogoutComponent } from './logout/logout.component';
 import { SharedModule } from '../shared/shared.module';
 import { ActionComponent } from './action/action.component';
+import { UserResolver } from './user/user.resolver';
 
 @NgModule({
   declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent, LogoutComponent, ActionComponent],
@@ -26,6 +27,7 @@ import { ActionComponent } from './action/action.component';
     FlexLayoutModule,
     FormsModule,
     AuthRoutingModule
-  ]
+  ],
+  providers: [UserResolver]
 })
 export class AuthModule { }
