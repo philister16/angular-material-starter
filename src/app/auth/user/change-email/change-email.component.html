@@ -1,15 +1,30 @@
 <form fxLayout="column" #f="ngForm" (ngSubmit)="onSubmit(f)">
-  <h2>Update Email</h2>
+  <mat-card-title-group>
+    <mat-card-title>Change email</mat-card-title>
+    <mat-card-subtitle>{{ oldEmail }}</mat-card-subtitle>
+  </mat-card-title-group>
   <mat-form-field>
     <input 
       matInput 
       type="text" 
-      placeholder="Email" 
-      name="email" 
-      [(ngModel)]="oldEmail"
+      placeholder="New email" 
+      name="newEmail" 
+      ngModel
       required
-      email>
+      email
+      #newEmail>
     <mat-error>A valid email address is required.</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input 
+    matInput
+    type="password"
+    placeholder="Password"
+    name="password"
+    ngModel
+    required>
+    <mat-hint>Please provide your password to change the email.</mat-hint>
+    <mat-error>The password is required to change the email.</mat-error>
   </mat-form-field>
   <div>
     <button mat-flat-button color="accent" type="submit" [disabled]="f.invalid">Update</button>

@@ -2,16 +2,20 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { AlertService } from '../core/alert.service';
+
+const snackbarConfig: MatSnackBarConfig = {
+  duration: 5000,
+  horizontalPosition: 'end',
+  verticalPosition: 'top'
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   redirectUrl: string;
-  currentUser: firebase.User;
 
   constructor(
     private router: Router, 
@@ -21,7 +25,6 @@ export class AuthService {
     private alertService: AlertService) {
       this.afAuth.auth.onAuthStateChanged(user => {
         console.log('AuthService#constructor:', user);
-        this.currentUser = user;
         if (user && !user.emailVerified) {
           this.hasEmailAlert(true);
         }
@@ -44,7 +47,6 @@ export class AuthService {
   async verifyEmail(actionCode: string) {
     try {
       await this.afAuth.auth.applyActionCode(actionCode);
-      await this.currentUser.reload()
       this.hasEmailAlert(false);
     } catch(err) {
       throw err;
@@ -70,13 +72,13 @@ export class AuthService {
     try {
       const cred = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
       await this.db.collection('users').doc(cred.user.uid).set({
-        username
+        username,
+        email
       });
       await cred.user.sendEmailVerification();
       const url = this.redirectUrl || '/user';
       this.router.navigateByUrl(url);
     } catch(err) {
-      console.log('authService#signUp:', err);
       throw err;
     }
   }
@@ -103,7 +105,7 @@ export class AuthService {
   async forgotPassword({ email }) {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(email);
-      this.snackbar.open('Reset link sent. Check your inbox.', 'OK', { duration: 3000 });
+      this.snackbar.open('Reset link sent. Check your inbox.', 'OK', snackbarConfig);
     } catch(err) {
       throw err;
     }
@@ -113,8 +115,32 @@ export class AuthService {
     try {
       await this.afAuth.auth.verifyPasswordResetCode(code);
       await this.afAuth.auth.confirmPasswordReset(code, password);
-      this.snackbar.open('Password changed', 'OK', { duration: 5000 });
-      this.router.navigateByUrl('/auth/login');
+      this.snackbar.open('Password changed', 'OK', snackbarConfig);
+    } catch(err) {
+      throw err;
+    }
+  }
+
+  async updatePassword(oldPassword, newPassword) {
+    try {
+      await this.afAuth.auth.signInWithEmailAndPassword(this.afAuth.auth.currentUser.email, oldPassword);
+      await this.afAuth.auth.currentUser.updatePassword(newPassword);
+      this.snackbar.open('Password changed successfully', 'OK', snackbarConfig);
+    } catch(err) {
+      throw err;
+    }
+  }
+
+  async updateEmail(password, newEmail) {
+    try {
+      await this.afAuth.auth.signInWithEmailAndPassword(this.afAuth.auth.currentUser.email, password);
+      await this.afAuth.auth.currentUser.updateEmail(newEmail);
+      this.snackbar.open('Email address changed', 'OK', snackbarConfig);
+      await this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).update({
+        email: newEmail
+      });
+      await this.afAuth.auth.currentUser.sendEmailVerification();
+      this.hasEmailAlert(true);
     } catch(err) {
       throw err;
     }

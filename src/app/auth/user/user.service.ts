@@ -9,18 +9,21 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class UserService {
-  private userId: string;
-  private user: User;
+  private userId: string = this.afAuth.auth.currentUser.uid;
 
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) {
-    this.userId = this.afAuth.auth.currentUser.uid;
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    });
   }
 
   userInfo(): Observable<User> {
     return this.db.collection('users').doc(this.userId).get().pipe(
       map(doc => {
-        return this.user = {
-          ...this.user, ...doc.data()
+        return {
+          ...doc.data()
         }
       })
     );
@@ -31,7 +34,7 @@ export class UserService {
     try {
       await this.db.collection('users').doc(this.userId).update(cleaned);
     } catch(err) {
-      console.log('UserService#updateUser:', err);
+      throw err;
     }
   }
 

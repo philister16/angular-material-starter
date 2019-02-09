@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { User } from '../user.interface';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -8,8 +7,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
-  oldPassword: string;
-  @Output() newPassword = new EventEmitter<string | null>();
+  @Output() credentials = new EventEmitter<{ oldPassword: string, newPassword: string } | null>();
 
   constructor() { }
 
@@ -17,11 +15,10 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    const password = form.controls['newPassword'].value;
-    this.newPassword.emit(password);
+    this.credentials.emit(form.value);
   }
 
   onCancel() {
-    this.newPassword.emit(null);
+    this.credentials.emit(null);
   }
 }

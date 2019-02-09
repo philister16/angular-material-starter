@@ -17,9 +17,27 @@ import { LogoutComponent } from './logout/logout.component';
 import { SharedModule } from '../shared/shared.module';
 import { ActionComponent } from './action/action.component';
 import { UserResolver } from './user/user.resolver';
+import { ProfileInfoComponent } from './user/profile-info/profile-info.component';
+import { ProfileImageComponent } from './user/profile-image/profile-image.component';
+import { ConfirmEmailChangeComponent } from './user/change-email/confirm-email-change/confirm-email-change.component';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent, ForgotPasswordComponent, AuthFormShellComponent, ResetPasswordComponent, UserComponent, UpdateProfileComponent, ChangePasswordComponent, ChangeEmailComponent, LogoutComponent, ActionComponent],
+  declarations: [
+    SignupComponent, 
+    LoginComponent, 
+    ForgotPasswordComponent, 
+    AuthFormShellComponent, 
+    ResetPasswordComponent, 
+    UserComponent, 
+    UpdateProfileComponent, 
+    ChangePasswordComponent, 
+    ChangeEmailComponent, 
+    LogoutComponent, 
+    ActionComponent,
+    ProfileInfoComponent,
+    ProfileImageComponent,
+    ConfirmEmailChangeComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -28,6 +46,7 @@ import { UserResolver } from './user/user.resolver';
     FormsModule,
     AuthRoutingModule
   ],
-  providers: [UserResolver]
+  providers: [UserResolver],
+  entryComponents: [ConfirmEmailChangeComponent]
 })
 export class AuthModule { }

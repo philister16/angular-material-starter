@@ -1,32 +1,18 @@
 <section>
-  <mat-card fxLayout fxLayout.xs="column" fxLayoutGap="16px">
-    <div fxFlex.gt-xs="33%" class="profile-image">
-      <button mat-icon-button color="accent">
-        <mat-icon>add_a_photo</mat-icon>
-      </button>
-    </div>
-    <div *ngIf="!isUpdating && !isChangingEmail && !isChangingPassword">
-      <mat-card-title-group>
-        <mat-card-title>{{ user?.firstname && user?.lastname ? user?.firstname + " " + user?.lastname : user?.username }}</mat-card-title>
-        <mat-card-subtitle>{{ user?.email }}</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content>
-        <p>{{ user?.bio }}</p>
-      </mat-card-content>
+  <mat-card [ngSwitch]="view">
+    <app-update-profile *ngSwitchCase="'updateProfile'" [user]="user" (updatedUser)="onUserUpdate($event)"></app-update-profile>
+    <app-change-email *ngSwitchCase="'changeEmail'" [oldEmail]="user.email" (newEmail)="onEmailChange($event)"></app-change-email>
+    <app-change-password *ngSwitchCase="'changePassword'" (credentials)="onPasswordChange($event)"></app-change-password>
+    <div *ngSwitchDefault fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap="16px">
+      <app-profile-image></app-profile-image>
       <div>
-        <button mat-stroked-button (click)="toggleView('profile')">Update</button>
-        <button mat-stroked-button (click)="toggleView('email')">Change email</button>
-        <button mat-stroked-button (click)="toggleView('password')">Change password</button>
+        <app-profile-info [userInfo]="user"></app-profile-info>
+        <div class="user-profile-buttons">
+          <button mat-stroked-button (click)="toggleView('updateProfile')">Update</button>
+          <button mat-stroked-button (click)="toggleView('changeEmail')">Change email</button>
+          <button mat-stroked-button (click)="toggleView('changePassword')">Change password</button>
+        </div>
       </div>
-    </div>
-    <div *ngIf="isUpdating" class="profile-form">
-      <app-update-profile [user]="user" (done)="toggleView('profile')"></app-update-profile>
-    </div>
-    <div *ngIf="isChangingEmail" class="profile-form">
-      <app-change-email [oldEmail]="user.email" (newEmail)="onEmailChanged($event)"></app-change-email>
-    </div>
-    <div *ngIf="isChangingPassword" class="profile-form">
-      <app-change-password (newPassword)="onPasswordChanged($event)"></app-change-password>
     </div>
   </mat-card>
 </section>

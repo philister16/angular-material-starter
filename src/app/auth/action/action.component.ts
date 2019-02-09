@@ -8,7 +8,9 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./action.component.scss']
 })
 export class ActionComponent implements OnInit {
+  atWork: boolean;
   mode: string;
+  actionCode: string;
   heading: string;
   timer: number;
   message: string;
@@ -23,11 +25,16 @@ export class ActionComponent implements OnInit {
   }
 
   doAction({ mode, oobCode } = this.activatedRoute.snapshot.queryParams) {
+    this.actionCode = oobCode;
     switch(mode) {
       case 'verifyEmail':
         this.heading = 'Verify Email';
         this.mode = mode;
         this.verifyEmail(oobCode);
+        break;
+      case 'resetPassword':
+        this.heading = 'Reset Password';
+        this.mode = mode;
         break;
       default:
         this.error('Something has gone wrong.', '/');
@@ -41,6 +48,23 @@ export class ActionComponent implements OnInit {
     } catch(err) {
       console.log('ActionComponent#verifyEmail:', err);
       this.error(err.message, '/user');
+    }
+  }
+
+  onNewPassword(newPassword) {
+    this.atWork = true;
+    this.resetPassword(this.actionCode, newPassword)
+  }
+
+  async resetPassword(actionCode, newPassword) {
+    try {
+      await this.authService.resetPassword(actionCode, newPassword);
+      this.atWork = false;
+      this.router.navigateByUrl('/auth/login');
+    } catch(err) {
+      console.log('ActionComponent#resetPassword:', err);
+      this.atWork = false;
+      this.error('Your password could not be reset.', '/');
     }
   }
 

@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -9,26 +7,17 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-  atWork: boolean = false;
-  err: { show: boolean, message?: string } = { show: false };
+  @Input() atWork: boolean = false;
+  @Output() newPassword = new EventEmitter<string>();
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  async onSubmit(form: NgForm) {
-    this.atWork = true;
-    this.err = { show: false };
+  onSubmit(form: NgForm) {
     const { password } = form.value;
-    const code = this.activatedRoute.snapshot.queryParams['oobCode'];
-    try {
-      await this.authService.resetPassword(code, password);
-      this.atWork = false;
-    } catch(err) {
-      this.atWork = false;
-      this.err = { show: true, message: err.message };
-    }
+    this.newPassword.emit(password);
   }
 
 }

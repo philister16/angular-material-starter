@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Change email address?</h2>
+<mat-dialog-content>
+  You are about to change the email address associated with your account to {{ data.newEmail }}. Please confirm to continue.
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="onConfirm()">Confirm</button>
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

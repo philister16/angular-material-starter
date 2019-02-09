@@ -1,0 +1,6 @@
+<div class="data-loader" *ngIf="isLoadingData">
+  <mat-spinner color="accent" diameter="20"></mat-spinner>
+</div>
+<div *ngIf="isLoadingRoute" class="h-100" fxLayout fxLayoutAlign="center center">
+  <mat-spinner color="accent" diameter="50"></mat-spinner>
+</div>

@@ -15,10 +15,8 @@
   </mat-sidenav>
   <mat-sidenav-content fxLayout="column">
     <main class="mat-typography" fxFlex="grow">
-      <div *ngIf="isLoading" class="h-100" fxLayout fxLayoutAlign="center center">
-        <mat-spinner color="accent" diameter="50"></mat-spinner>
-      </div>
-      <app-alert *ngIf="hasAlert && !isLoading"></app-alert>
+      <app-alert></app-alert>
+      <app-loader></app-loader>
       <router-outlet></router-outlet>
     </main>
     <app-footer></app-footer>

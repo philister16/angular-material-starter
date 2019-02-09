@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './user.interface';
 import { UserService } from './user.service';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { LoaderService } from 'src/app/layout/loader/loader.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-user',
@@ -10,51 +11,71 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  isUpdating: boolean = false;
-  isChangingEmail: boolean = false;
-  isChangingPassword: boolean = false;
+  view: string;
   user: User;
-  userSubscription: Subscription;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(
+    private userService: UserService, 
+    private route: ActivatedRoute, 
+    private loaderService: LoaderService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.user = this.route.snapshot.data.userInfo;
   }
 
-  toggleView(view: 'email' | 'password' | 'profile') {
-    switch(view) {
-      case 'profile':
-        this.isUpdating = !this.isUpdating;
-        break;
-      case 'email':
-        this.isChangingEmail = !this.isChangingEmail;
-        break;
-      case 'password':
-        this.isChangingPassword = !this.isChangingPassword;
-        break;
+  toggleView(view?: 'changeEmail' | 'changePassword' | 'updateProfile') {
+    this.view = view;
+  }
+
+  async onUserUpdate(user: User) {
+    if (user !== null) {
+      try {
+        this.loaderService.start();
+        await this.userService.updateUser(user);
+        this.toggleView();
+        this.loaderService.stop();
+      } catch(err) {
+        console.log('UserComponent#onUserUpdate:', err);
+        this.loaderService.stop();
+      }
+    } else {
+      this.toggleView();
     }
   }
 
-  onChangeEmail() {
-    this.isChangingEmail = true;
-  }
-
-  onEmailChanged(newEmail: string | null) {
-    this.isChangingEmail = false;
-    if (newEmail) {
-      this.userService.updateUser({ email: newEmail});
+  async onPasswordChange(form: { oldPassword: string, newPassword: string } | null) {
+    if (form === null) {
+      this.toggleView();
+    } else {
+      const { oldPassword, newPassword } = form;
+      console.log(oldPassword, newPassword);
+      try {
+        this.loaderService.start();
+        await this.authService.updatePassword(oldPassword, newPassword);
+        this.toggleView();
+        this.loaderService.stop();
+      } catch(err) {
+        console.log('UserComponent#onPasswordChange:', err);
+        this.loaderService.stop();
+      }
     }
   }
 
-  onChangePassword() {
-    this.isChangingPassword = true;
-  }
-
-  onPasswordChanged(newPassword: string | null) {
-    this.isChangingPassword = false;
-    if (newPassword) {
-      this.userService.updateUser({ password: newPassword });
+  async onEmailChange(cred: { password: string, newEmail: string } | null) {
+    if (cred === null) {
+      this.toggleView();
+    } else {
+      try {
+        this.loaderService.start();
+        await this.authService.updateEmail(cred.password, cred.newEmail);
+        this.user.email = cred.newEmail;
+        this.toggleView();
+        this.loaderService.stop();
+      } catch(err) {
+        console.log('UserComponent#onEmailChange:', err);
+        this.loaderService.stop();
+      }
     }
   }
 

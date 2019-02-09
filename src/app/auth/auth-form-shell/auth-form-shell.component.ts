@@ -32,10 +32,8 @@ export class AuthFormShellComponent implements OnInit {
         return this.menuService.stripMenuByNavTitles(['Login'], menu);
       case 'signup':
         return this.menuService.stripMenuByNavTitles(['Sign up'], menu);
-      case 'forgot-password':
-        return this.menuService.stripMenuByNavTitles(['Forgot password'], menu);
       default:
-        return menu;
+        return this.menuService.stripMenuByNavTitles(['Forgot password'], menu);
     }
   }
 

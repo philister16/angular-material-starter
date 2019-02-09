@@ -7,9 +7,10 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { AlertComponent } from './alert/alert.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [TopbarComponent, SidenavComponent, FooterComponent, AlertComponent],
+  declarations: [TopbarComponent, SidenavComponent, FooterComponent, AlertComponent, LoaderComponent],
   imports: [
     CommonModule,
     RouterModule,
