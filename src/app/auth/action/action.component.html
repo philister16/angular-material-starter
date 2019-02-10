@@ -2,6 +2,9 @@
   <div *ngIf="isMode('verifyEmail')" class="py-16">
     <p>Verifying email...</p>
   </div>
+  <div *ngIf="isMode('recoverEmail')" class="py-16">
+    <p>Recovering email...</p>
+  </div>
   <app-reset-password *ngIf="isMode('resetPassword')" [atWork]="atWork" (newPassword)="onNewPassword($event)"></app-reset-password>
   <div *ngIf="isMode('success')">
     <p class="text-success">Success! {{ message }} You will be redirected back to the app in {{ timer }} seconds. <a routerLink="/user">Continue</a></p>

@@ -1,8 +1,15 @@
 .profile-image {
     width: 150px;
     height: 150px;
+    background-color: #efefef;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 50%;
+}
+
+mat-progress-spinner {
+    position: absolute;
+    top: 51px;
+    left: 51px;
 }

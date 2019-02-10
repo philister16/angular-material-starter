@@ -36,6 +36,11 @@ export class ActionComponent implements OnInit {
         this.heading = 'Reset Password';
         this.mode = mode;
         break;
+      case 'recoverEmail':
+        this.heading = 'Recover Email';
+        this.mode = mode;
+        this.recoverEmail(oobCode);
+        break;
       default:
         this.error('Something has gone wrong.', '/');
     }
@@ -48,6 +53,16 @@ export class ActionComponent implements OnInit {
     } catch(err) {
       console.log('ActionComponent#verifyEmail:', err);
       this.error(err.message, '/user');
+    }
+  }
+
+  async recoverEmail(actionCode) {
+    try {
+      await this.authService.recoverEmail(actionCode);
+      this.success('Your email was restored successfully.', '/user');
+    } catch(err) {
+      console.log('ActionComponent#recoverEmail:', err);
+      this.error(err.message, '/');
     }
   }
 

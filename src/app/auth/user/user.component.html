@@ -4,7 +4,7 @@
     <app-change-email *ngSwitchCase="'changeEmail'" [oldEmail]="user.email" (newEmail)="onEmailChange($event)"></app-change-email>
     <app-change-password *ngSwitchCase="'changePassword'" (credentials)="onPasswordChange($event)"></app-change-password>
     <div *ngSwitchDefault fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap="16px">
-      <app-profile-image></app-profile-image>
+      <app-profile-image [image]="user.avatar"></app-profile-image>
       <div>
         <app-profile-info [userInfo]="user"></app-profile-info>
         <div class="user-profile-buttons">

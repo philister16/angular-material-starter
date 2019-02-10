@@ -24,7 +24,6 @@ export class AuthService {
     private db: AngularFirestore,
     private alertService: AlertService) {
       this.afAuth.auth.onAuthStateChanged(user => {
-        console.log('AuthService#constructor:', user);
         if (user && !user.emailVerified) {
           this.hasEmailAlert(true);
         }
@@ -34,11 +33,7 @@ export class AuthService {
   async resendEmailVerificationLink() {
     try {
       await this.afAuth.auth.currentUser.sendEmailVerification();
-      this.alertService.issue({
-        type: 'info',
-        message: 'Link delivered to your inbox again. Please click it to verify your email.',
-        dismiss: 'OK'
-      });
+      this.snackbar.open('Email verification link sent to your inbox', 'OK', snackbarConfig);
     } catch(err) {
       console.log('AuthService#resendEmailVerificationLink:', err);
     }
@@ -141,6 +136,20 @@ export class AuthService {
       });
       await this.afAuth.auth.currentUser.sendEmailVerification();
       this.hasEmailAlert(true);
+    } catch(err) {
+      throw err;
+    }
+  }
+
+  async recoverEmail(actionCode) {
+    try {
+      const info = await this.afAuth.auth.checkActionCode(actionCode);
+      console.log(info.data.email);
+      await this.afAuth.auth.applyActionCode(actionCode);
+      await this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).update({
+        email: info.data.email
+      });
+      this.hasEmailAlert(false);
     } catch(err) {
       throw err;
     }

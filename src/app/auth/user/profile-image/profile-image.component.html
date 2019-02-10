@@ -1,5 +1,7 @@
-<div class="profile-image" [ngStyle]="{ 'background-image': 'url(' + image +')' }">
-  <button mat-icon-button color="accent">
+<div class="profile-image" #profileImage>
+  <button *ngIf="!isUploading" mat-icon-button color="accent" (click)="fileInput.click()">
     <mat-icon>add_a_photo</mat-icon>
   </button>
+  <input type="file" accept=".png, .jpg, .jpeg, image/png, image/jpg, image/jpeg" hidden #fileInput (change)="onFileSelected()" id="file-input">
+  <mat-progress-spinner *ngIf="isUploading" color="primary" [value]="uploadProgress" diameter="80" strokeWidth="4"></mat-progress-spinner>
 </div>
