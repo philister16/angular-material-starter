@@ -1,0 +1,16 @@
+<section>
+  <mat-card>
+    <h2>Notifications</h2>
+    <p *ngIf="notifications.length <= 0">All clean - you have no notifications!</p>
+    <mat-list>
+      <mat-list-item *ngFor="let notification of notifications">
+        <mat-icon mat-list-icon>{{ notification.icon }}</mat-icon>
+        <h3 mat-line [ngStyle]="{ 'font-weight': notification.unread ? '700' : 'inherit' }">{{ notification.title }}</h3>
+        <p mat-line [ngStyle]="{ 'font-weight': notification.unread ? '700' : 'inherit' }">{{ notification.description }}</p>
+        <button mat-icon-button (click)="onDelete(notification)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</section>

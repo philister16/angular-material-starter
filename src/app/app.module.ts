@@ -19,6 +19,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
 import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
+import { NotificationsComponent } from './notifications/notifications/notifications.component';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { CoreModule } from './core/core.module';
     LayoutModule,
     AuthModule,
     DashboardModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NotificationsModule
   ],
   providers: [
     // Fix for angularfire console error, see above

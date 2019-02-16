@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/core/alert.service';
+import { NotificationsService } from 'src/app/notifications/notifications.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import { AlertService } from 'src/app/core/alert.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private alertService: AlertService) { }
+  constructor(private notificationsService: NotificationsService, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
   }

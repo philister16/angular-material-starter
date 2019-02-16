@@ -34,7 +34,8 @@ import {
     MatDividerModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule
   ],
   exports: [
     MatButtonModule,
@@ -49,7 +50,8 @@ import {
     MatDividerModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule
   ]
 })
 export class AngularMaterialModule { }

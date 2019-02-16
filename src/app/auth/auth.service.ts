@@ -30,6 +30,10 @@ export class AuthService {
       });
   }
 
+  get userId() {
+    return this.afAuth.auth.currentUser.uid;
+  }
+
   async resendEmailVerificationLink() {
     try {
       await this.afAuth.auth.currentUser.sendEmailVerification();
