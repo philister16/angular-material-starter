@@ -14,8 +14,8 @@
     </ul>
   </nav>
   <div class="tools">
-    <a mat-icon-button (click)="onNotificationRouteClick()" routerLink="/notifications">
-      <mat-icon [matBadge]="notifications" matBadgeColor="accent" matBadgeSize="medium">notification_important</mat-icon>
+    <a mat-icon-button routerLink="/notifications">
+      <mat-icon [matBadge]="counter <= 0 ? null : counter" matBadgeColor="accent" matBadgeSize="medium">notification_important</mat-icon>
     </a>
     <a mat-icon-button routerLink="/user">
       <mat-icon>account_box</mat-icon>

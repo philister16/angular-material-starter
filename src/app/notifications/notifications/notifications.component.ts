@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../notifications.service';
 import { Notification } from '../notification.interface';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -9,14 +9,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent implements OnInit {
+export class NotificationsComponent implements OnInit, OnDestroy {
   notifications: Notification[];
 
   constructor(private notificationsService: NotificationsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.notifications = this.route.snapshot.data.notifications;
-    this.notificationsService.markAsRead(this.notifications);
   }
 
   async onDelete(notification) {
@@ -26,5 +25,9 @@ export class NotificationsComponent implements OnInit {
     } catch(err) {
       console.log('NotificationsComponent#onDelete:', err);
     }
+  }
+
+  ngOnDestroy() {
+    this.notificationsService.markAsRead(this.notifications);
   }
 }

@@ -12,6 +12,18 @@ export class DashboardComponent implements OnInit {
   constructor(private notificationsService: NotificationsService, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
+    
+  }
+
+  makeNotif() {
+    this.notificationsService.createNotification({
+      title: 'Test',
+      unread: true,
+      icon: 'info',
+      description: 'Some nice description of this very fancy notification.',
+      destination: '/',
+      destinationTitle: 'Go home'
+    });
   }
 
 }

@@ -6,7 +6,12 @@
       <mat-list-item *ngFor="let notification of notifications">
         <mat-icon mat-list-icon>{{ notification.icon }}</mat-icon>
         <h3 mat-line [ngStyle]="{ 'font-weight': notification.unread ? '700' : 'inherit' }">{{ notification.title }}</h3>
-        <p mat-line [ngStyle]="{ 'font-weight': notification.unread ? '700' : 'inherit' }">{{ notification.description }}</p>
+        <p mat-line [ngStyle]="{ 'font-weight': notification.unread ? '700' : 'inherit' }">
+          {{ notification.description + " " }}
+        </p>
+        <p mat-line>
+          <a [routerLink]="notification?.destination">{{ notification?.destinationTitle }}</a>
+        </p>
         <button mat-icon-button (click)="onDelete(notification)">
           <mat-icon>delete</mat-icon>
         </button>
