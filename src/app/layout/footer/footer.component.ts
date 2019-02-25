@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from 'src/app/menu/menu.service';
-import { AppMenu } from 'src/app/menu/app-menus';
+import { MenuService, AppMenuItem } from 'src/app/core/menu.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,13 +8,15 @@ import { AppMenu } from 'src/app/menu/app-menus';
 })
 export class FooterComponent implements OnInit {
   year: number;
-  footerMenu: AppMenu[]
+  footerMenu: AppMenuItem[];
+  footerIconMenu: AppMenuItem[];
 
   constructor(private menuService: MenuService) { }
 
   ngOnInit() {
     this.year = new Date().getFullYear();
     this.footerMenu = this.menuService.getMenu('footer');
+    this.footerIconMenu = this.menuService.getMenu('footer-icons');
   }
 
 }

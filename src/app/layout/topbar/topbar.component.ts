@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { MenuService } from 'src/app/menu/menu.service';
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { Subscription } from 'rxjs';
+import { MenuService, AppMenuItem } from 'src/app/core/menu.service';
 
 @Component({
   selector: 'app-topbar',
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   @Output() menuChange = new EventEmitter();
-  mainMenu;
+  mainMenu: AppMenuItem[];
   notificationCount: Subscription;
   counter: number | null;
 

@@ -6,11 +6,8 @@
     </ul>
   </nav>
   <div>
-    <button mat-icon-button>
-      <mat-icon>help</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>email</mat-icon>
-    </button>
+    <a *ngFor="let item of footerIconMenu" routerLink="item.route" mat-icon-button>
+      <mat-icon>{{ item?.icon }}</mat-icon>
+    </a>
   </div>
 </footer>

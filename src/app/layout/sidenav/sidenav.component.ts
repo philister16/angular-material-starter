@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MenuService } from 'src/app/menu/menu.service';
+import { MenuService, AppMenuItem } from 'src/app/core/menu.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,8 +11,8 @@ import { MenuService } from 'src/app/menu/menu.service';
 })
 export class SidenavComponent implements OnInit {
   isHandset$: Observable<Boolean>;
-  mainMenu;
-  subMenu;
+  mainMenu: AppMenuItem[];
+  subMenu: AppMenuItem[];
 
   constructor(
     private breakpointObserver: BreakpointObserver,

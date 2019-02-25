@@ -1,8 +1,6 @@
-import { Component, OnInit, Input, getModuleFactory } from '@angular/core';
-import { MenuService } from 'src/app/menu/menu.service';
-import { AppMenu } from 'src/app/menu/app-menus';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
+import { MenuService, AppMenuItem } from 'src/app/core/menu.service';
 
 @Component({
   selector: 'app-auth-form-shell',
@@ -11,7 +9,7 @@ import { map, tap } from 'rxjs/operators';
 })
 export class AuthFormShellComponent implements OnInit {
   @Input() heading: string;
-  menu: AppMenu[];
+  menu: AppMenuItem[];
   mode: string;
 
   constructor(private menuService: MenuService, private router: Router, private activatedRoute: ActivatedRoute) { }

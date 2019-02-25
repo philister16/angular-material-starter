@@ -7,67 +7,11 @@ button { text-transform: uppercase }
 .mat-spinner circle {
     stroke: white;
 }
-// Global utils
+
 section, footer, .container {
     padding: 16px;
     background-color: #fafafa;
 }
 
-.h-100 {
-    height: 100%;
-}
-
-.w-100 {
-    width: 100%;
-}
-
-.w-468 {
-    width: 468px;
-}
-
-.py-16 {
-    padding-top: 16px;
-    padding-bottom: 16px;
-}
-
-.pt-16 {
-    padding-top: 16px;
-}
-
-.pr-8 {
-    padding-right: 8px;
-}
-
-.text-centered {
-    text-align: center;
-}
-
-.text-error {
-    color: darkred;
-}
-
-.text-success {
-    color: darkgreen;
-}
-
-// Pre-loader styling - shows during initial load of app
-.pre-loader-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .pre-loader {
-    border: 8px solid rgb(245, 245, 245);
-    border-top: 8px solid rgb(215, 215, 215);
-    border-radius: 50%;
-    width: 88px;
-    height: 88px;
-    animation: spin 2s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+@import './styles/utilities';
+@import './styles/pre-loader';

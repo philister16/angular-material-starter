@@ -14,7 +14,6 @@ import {
   MatDividerModule,
   MatProgressSpinnerModule,
   MatSnackBarModule,
-  MatProgressBarModule,
   MatDialogModule
 } from '@angular/material';
 
