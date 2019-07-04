@@ -10,7 +10,7 @@ export class ConfirmEmailChangeComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ConfirmEmailChangeComponent>,
-    @Inject(MAT_DIALOG_DATA) private data) { }
+    @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
   }
