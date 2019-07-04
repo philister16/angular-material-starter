@@ -9,8 +9,8 @@ import { UserService } from '../user.service';
 })
 export class ProfileImageComponent implements OnInit {
   @Input() image: string;
-  @ViewChild('fileInput') fileInput: ElementRef;
-  @ViewChild('profileImage') profileImage: ElementRef;
+  @ViewChild('fileInput', { static: true }) fileInput: ElementRef;
+  @ViewChild('profileImage', { static: true }) profileImage: ElementRef;
   isUploading: boolean = false;
   uploadProgress: number = 0;
 
