@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../notifications.service';
 import { Notification } from '../notification.interface';
-import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
